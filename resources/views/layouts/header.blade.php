@@ -1,11 +1,23 @@
-<nav style="background-color: #00529C; padding: 15px; color: white;">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="margin: 0;">SINTA Pertamina</h3>
-        
-        <div>
-            <a href="{{ url('/') }}" style="color: white; text-decoration: none; margin-right: 15px;">Home</a>
-            <a href="{{ url('/data-diri') }}" style="color: white; text-decoration: none; margin-right: 15px;">Daftar Penelitian</a>
-            <a href="#" style="color: white; text-decoration: none;">Login</a>
+<header>
+    <div class="bg-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('img/logo-pertaminaa.png') }}" 
+                     alt="Pertamina Semangat Terbarukan" 
+                     style="height: 50px; object-fit: contain;">
+            </a>
+
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('img/logo-sinta.png') }}" 
+                     alt="SINTA Student Internship" 
+                     style="height: 50px; object-fit: contain;">
+            </a>
+
         </div>
     </div>
-</nav>
+
+    <div style="background-color: #E31B23; height: 25px; width: 100%;"></div>
+    
+    <div class="shadow-sm" style="height: 1px;"></div>
+</header>
