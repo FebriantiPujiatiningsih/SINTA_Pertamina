@@ -28,4 +28,4 @@ Route::get('/hasil/cek', [HasilController::class, 'cek'])->name('hasil.cek');
 Route::get('/data-diri', function () {
     // layouts (folder) . penelitian (folder) . DataDiri (nama file)
     return view('layouts.penelitian.DataDiri');
-});
+})->name('penelitian.data-diri');
