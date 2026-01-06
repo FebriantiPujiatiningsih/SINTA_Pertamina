@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MagangController;
-use App\Http\Controllers\PenelitianController;
-use App\Http\Controllers\HasilController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,7 +56,7 @@ Route::get('/data-diri', function () {
 
 // ADMIN
 Route::get('/', function () {
-    return redirect()->route('login.form');
+    return view('welcome');
 });
 
 Route::get('/login', [AdminController::class, 'loginForm'])->name('login.form');
