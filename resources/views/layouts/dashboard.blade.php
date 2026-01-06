@@ -51,7 +51,7 @@
                     Mau merasakan magang di PT. Pertamina (Persero)?
                     Silakan daftarkan dirimu sekarang juga.
                 </p>
-                <a href="#" class="btn btn-primary w-100">
+                <a href="{{ route('magang.data-diri') }}" class="btn btn-primary w-100">
                     Daftar Magang Kerja
                 </a>
             </div>

@@ -8,12 +8,37 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-// Magang routes
+/*
+|--------------------------------------------------------------------------
+| Pendaftaran Magang Kerja
+|--------------------------------------------------------------------------
+*/
 Route::prefix('magang')->group(function () {
-    Route::get('/daftar', [MagangController::class, 'daftar'])->name('magang.daftar');
-    Route::post('/store', [MagangController::class, 'store'])->name('magang.store');
-    Route::get('/list', [MagangController::class, 'index'])->name('magang.index');
+
+    Route::get('/data-diri', function () {
+        return view('layouts.Magang-Kerja.DataDiri');
+    })->name('magang.data-diri');
+
+    Route::get('/data-kampus', function () {
+        return view('layouts.Magang-Kerja.DataKampus');
+    })->name('magang.data-kampus');
+
+    Route::get('/data-magang', function () {
+        return view('layouts.Magang-Kerja.DataMagang');
+    })->name('magang.data-magang');
+
+    Route::get('/file-pendukung', function () {
+        return view('layouts.Magang-Kerja.FilePendukung');
+    })->name('magang.file-pendukung');
+
 });
+
+// Magang routes
+// Route::prefix('magang')->group(function () {
+//     Route::get('/daftar', [MagangController::class, 'daftar'])->name('magang.daftar');
+//     Route::post('/store', [MagangController::class, 'store'])->name('magang.store');
+//     Route::get('/list', [MagangController::class, 'index'])->name('magang.index');
+// });
 
 // Penelitian routes
 Route::prefix('penelitian')->group(function () {
