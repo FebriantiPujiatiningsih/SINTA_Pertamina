@@ -31,10 +31,10 @@
 
 <div class="top-bar d-flex justify-content-between align-items-center">
     <div>
-        <img src="{{ asset('img/logo-pertaminaa.png') }}" height="70">
+        <img src="{{ asset('img/logo-pertaminaa.png') }}" height="50">
         <div class="small text-danger fw-semibold">Semangat Terbarukan</div>
     </div>
     <div>
-        <img src="{{ asset('img/logo-sinta.png') }}" height="70">
+        <img src="{{ asset('img/logo-sinta.png') }}" height="50">
     </div>
 </div>

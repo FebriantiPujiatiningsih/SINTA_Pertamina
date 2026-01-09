@@ -446,7 +446,6 @@
 
             <h5><i class="fas fa-university"></i> Data Kampus</h5>
 
-            <!-- Alert Validation -->
             <div class="alert-validation" id="alertValidation">
                 <i class="fas fa-exclamation-triangle"></i>
                 <span id="alertMessage"></span>
@@ -454,85 +453,65 @@
 
             <form id="formData">
 
-                <div class="mb-3">
-                    <label class="form-label">Universitas <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control wajib" id="universitas" name="universitas" list="universitasList" placeholder="Pilih atau ketik nama universitas" required>
-                    <datalist id="universitasList">
-                        <option value="Universitas Indonesia">
-                        <option value="Institut Teknologi Bandung">
-                        <option value="Universitas Gadjah Mada">
-                        <option value="Universitas Diponegoro">
-                        <option value="Institut Teknologi Sepuluh Nopember">
-                        <option value="Universitas Airlangga">
-                        <option value="Universitas Padjadjaran">
-                        <option value="Universitas Brawijaya">
-                        <option value="Universitas Sebelas Maret">
-                        <option value="Institut Pertanian Bogor">
-                    </datalist>
-                    <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap pilih universitas</div>
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="form-label">Nama Perguruan Tinggi <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control wajib"
+                               id="perguruan_tinggi" name="perguruan_tinggi"
+                               placeholder="Ketik nama perguruan tinggi">
+                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi perguruan tinggi</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Fakultas <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control wajib"
+                               id="fakultas" name="fakultas"
+                               placeholder="Contoh: Fakultas Teknik">
+                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi fakultas</div>
+                    </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3 mb-md-0">
                         <label class="form-label">Program Studi <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control wajib" id="prodi" name="prodi" required placeholder="Contoh: Teknik Informatika">
+                        <input type="text" class="form-control wajib"
+                               id="prodi" name="prodi"
+                               placeholder="Contoh: Teknik Informatika">
                         <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi program studi</div>
                     </div>
+
                     <div class="col-md-6">
                         <label class="form-label">Semester <span class="text-danger">*</span></label>
-                        <select class="form-select wajib" id="semester" name="semester" required>
-                            <option value="">Pilih Semester</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                        </select>
-                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap pilih semester</div>
+                        <input type="text" class="form-control wajib"
+                               id="semester" name="semester"
+                               placeholder="Contoh: 5">
+                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi semester</div>
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-4">
                     <div class="col-md-6 mb-3 mb-md-0">
                         <label class="form-label">IPK <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control wajib" id="ipk" name="ipk" min="0" max="4" step="0.01" required placeholder="3.50">
-                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> IPK harus antara 0-4</div>
+                        <input type="text" class="form-control wajib"
+                               id="ipk" name="ipk"
+                               placeholder="Contoh: 3.50">
+                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi IPK</div>
                     </div>
+
                     <div class="col-md-6">
                         <label class="form-label">NIM <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control wajib" id="nim" name="nim" required placeholder="Masukkan NIM">
+                        <input type="text" class="form-control wajib"
+                               id="nim" name="nim"
+                               placeholder="Masukkan NIM">
                         <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi NIM</div>
                     </div>
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label">Keahlian/Skills <span class="text-danger">*</span></label>
-                    <div class="skill-info">
-                        <i class="fas fa-info-circle"></i> Pilih minimal 3 keahlian yang Anda kuasai
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-tag" data-skill="Microsoft Office">Microsoft Office</div>
-                        <div class="skill-tag" data-skill="Python">Python</div>
-                        <div class="skill-tag" data-skill="Data Analysis">Data Analysis</div>
-                        <div class="skill-tag" data-skill="SAP">SAP</div>
-                        <div class="skill-tag" data-skill="AutoCAD">AutoCAD</div>
-                        <div class="skill-tag" data-skill="Bahasa Inggris">Bahasa Inggris</div>
-                        <div class="skill-tag" data-skill="Project Management">Project Management</div>
-                        <div class="skill-tag" data-skill="Programming">Programming</div>
-                        <div class="skill-tag" data-skill="Java">Java</div>
-                        <div class="skill-tag" data-skill="JavaScript">JavaScript</div>
-                        <div class="skill-tag" data-skill="PHP">PHP</div>
-                        <div class="skill-tag" data-skill="SQL">SQL</div>
-                    </div>
-                    <div class="skill-counter" id="skillCounter">Dipilih: 0/12</div>
-                    <input type="hidden" name="skills" id="selectedSkills" required>
-                    <div class="error-text d-none" id="skillError"><i class="fas fa-exclamation-circle"></i> Pilih minimal 3 keahlian</div>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn-custom btn-back" onclick="kembaliKeStep1()">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </button>
+
                     <button type="button" class="btn-custom btn-next" id="btnNext" onclick="lanjutKeStep3()">
                         Selanjutnya <i class="fas fa-arrow-right"></i>
                     </button>
@@ -545,137 +524,60 @@
 </div>
 
 <script>
-const skillTags = document.querySelectorAll('.skill-tag');
-const selectedSkillsInput = document.getElementById('selectedSkills');
-const skillCounter = document.getElementById('skillCounter');
 const alertValidation = document.getElementById('alertValidation');
 const alertMessage = document.getElementById('alertMessage');
-let selectedSkills = [];
-
-skillTags.forEach(tag => {
-    tag.addEventListener('click', function() {
-        const skill = this.dataset.skill;
-        
-        if (this.classList.contains('selected')) {
-            this.classList.remove('selected');
-            selectedSkills = selectedSkills.filter(s => s !== skill);
-        } else {
-            this.classList.add('selected');
-            selectedSkills.push(skill);
-        }
-        
-        selectedSkillsInput.value = selectedSkills.join(', ');
-        updateSkillCounter();
-    });
-});
-
-function updateSkillCounter() {
-    const count = selectedSkills.length;
-    const total = skillTags.length;
-    skillCounter.textContent = `Dipilih: ${count}/${total}`;
-    
-    if (count >= 3) {
-        skillCounter.style.background = 'linear-gradient(135deg, var(--pertamina-green), #008f4a)';
-        document.getElementById('skillError').classList.add('d-none');
-    } else {
-        skillCounter.style.background = 'linear-gradient(135deg, var(--pertamina-blue), var(--pertamina-green))';
-    }
-}
 
 function showAlert(message) {
     alertMessage.textContent = message;
     alertValidation.classList.add('show');
-    
-    setTimeout(() => {
-        alertValidation.classList.remove('show');
-    }, 5000);
-
-    alertValidation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => alertValidation.classList.remove('show'), 4000);
 }
 
 function validasiForm() {
     let valid = true;
-    let firstInvalidField = null;
+    let firstInvalid = null;
 
-    // Hapus semua error sebelumnya
     document.querySelectorAll('.wajib').forEach(input => {
         input.classList.remove('is-invalid');
         const error = input.nextElementSibling;
-        if (error && error.classList.contains('error-text')) {
-            error.classList.add('d-none');
-        }
-    });
+        if (error) error.classList.add('d-none');
 
-    // Validasi setiap field
-    document.querySelectorAll('.wajib').forEach(input => {
-        const error = input.nextElementSibling;
-        const value = input.value.trim();
-
-        if (!value) {
+        if (!input.value.trim()) {
             input.classList.add('is-invalid');
-            if (error && error.classList.contains('error-text')) {
-                error.classList.remove('d-none');
-            }
+            if (error) error.classList.remove('d-none');
             valid = false;
-            if (!firstInvalidField) firstInvalidField = input;
-        } else {
-            // Validasi IPK
-            if (input.id === 'ipk') {
-                const ipk = parseFloat(value);
-                if (ipk < 0 || ipk > 4) {
-                    input.classList.add('is-invalid');
-                    if (error && error.classList.contains('error-text')) {
-                        error.classList.remove('d-none');
-                    }
-                    valid = false;
-                    if (!firstInvalidField) firstInvalidField = input;
-                }
-            }
+            if (!firstInvalid) firstInvalid = input;
         }
     });
 
-    // Validasi skills
-    if (selectedSkills.length < 3) {
-        document.getElementById('skillError').classList.remove('d-none');
-        showAlert('Pilih minimal 3 keahlian!');
-        valid = false;
-    } else {
-        document.getElementById('skillError').classList.add('d-none');
-    }
-
-    if (!valid && firstInvalidField) {
+    if (!valid) {
         showAlert('Mohon lengkapi semua data yang wajib diisi!');
-        firstInvalidField.focus();
-        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     return valid;
 }
 
 function kembaliKeStep1() {
-    if (confirm('Apakah Anda yakin ingin kembali? Data yang belum disimpan akan hilang.')) {
-        window.location.href = "{{ route('magang.data-diri') }}";
-    }
+    window.location.href = "{{ route('magang.data-diri') }}";
 }
 
 function lanjutKeStep3() {
     if (validasiForm()) {
-        // Simpan data ke sessionStorage
-        const formData = {
-            universitas: document.getElementById('universitas').value,
+        const data = {
+            perguruan_tinggi: document.getElementById('perguruan_tinggi').value,
+            fakultas: document.getElementById('fakultas').value,
             prodi: document.getElementById('prodi').value,
             semester: document.getElementById('semester').value,
             ipk: document.getElementById('ipk').value,
             nim: document.getElementById('nim').value,
-            skills: selectedSkills
         };
-        
-        sessionStorage.setItem('dataKampus', JSON.stringify(formData));
-        
-        // Show loading state
-        const btnNext = document.getElementById('btnNext');
-        btnNext.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-        btnNext.disabled = true;
+
+        sessionStorage.setItem('dataKampus', JSON.stringify(data));
+
+        const btn = document.getElementById('btnNext');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
 
         setTimeout(() => {
             window.location.href = "{{ route('magang.data-magang') }}";
@@ -683,41 +585,16 @@ function lanjutKeStep3() {
     }
 }
 
-// Real-time validation
-document.querySelectorAll('.wajib').forEach(input => {
-    input.addEventListener('input', function() {
-        if (this.value.trim()) {
-            this.classList.remove('is-invalid');
-            const error = this.nextElementSibling;
-            if (error && error.classList.contains('error-text')) {
-                error.classList.add('d-none');
-            }
-        }
-    });
-});
-
-// Load saved data
-window.addEventListener('DOMContentLoaded', function() {
-    const savedData = sessionStorage.getItem('dataKampus');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        document.getElementById('universitas').value = data.universitas || '';
-        document.getElementById('prodi').value = data.prodi || '';
-        document.getElementById('semester').value = data.semester || '';
-        document.getElementById('ipk').value = data.ipk || '';
-        document.getElementById('nim').value = data.nim || '';
-        
-        if (data.skills && Array.isArray(data.skills)) {
-            data.skills.forEach(skill => {
-                const tag = Array.from(skillTags).find(t => t.dataset.skill === skill);
-                if (tag) {
-                    tag.classList.add('selected');
-                    selectedSkills.push(skill);
-                }
-            });
-            selectedSkillsInput.value = selectedSkills.join(', ');
-            updateSkillCounter();
-        }
+window.addEventListener('DOMContentLoaded', () => {
+    const saved = sessionStorage.getItem('dataKampus');
+    if (saved) {
+        const d = JSON.parse(saved);
+        document.getElementById('perguruan_tinggi').value = d.perguruan_tinggi || '';
+        document.getElementById('fakultas').value = d.fakultas || '';
+        document.getElementById('prodi').value = d.prodi || '';
+        document.getElementById('semester').value = d.semester || '';
+        document.getElementById('ipk').value = d.ipk || '';
+        document.getElementById('nim').value = d.nim || '';
     }
 });
 </script>

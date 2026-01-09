@@ -161,7 +161,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: none;
     }
 
     .upload-placeholder {
@@ -253,57 +252,59 @@
         color: white;
     }
 
-    .btn-back::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
+    .btn-back:hover {
         background: linear-gradient(to right, #5a6268, #495057);
-        transition: left 0.4s ease;
-        z-index: -1;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(108, 117, 125, 0.3);
     }
 
-    .btn-back:hover::before {
-        left: 0;
+    .btn-back:active {
+        background: linear-gradient(to right, #495057, #3d4349);
+        transform: translateY(0);
+        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.2);
     }
 
     .btn-next {
-        background: linear-gradient(to right, var(--pertamina-blue), var(--pertamina-dark));
+        background: linear-gradient(135deg, var(--pertamina-blue), var(--pertamina-dark));
         color: white;
+        box-shadow: 0 4px 15px rgba(0, 94, 184, 0.2);
     }
 
-    .btn-next::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to right, var(--pertamina-green), var(--pertamina-blue));
-        transition: left 0.4s ease;
-        z-index: -1;
-    }
-
-    .btn-next:hover::before {
-        left: 0;
-    }
-
-    .btn-custom:hover {
+    .btn-next:hover {
+        background: linear-gradient(135deg, var(--pertamina-green), var(--pertamina-blue));
         transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 94, 184, 0.25);
+        box-shadow: 0 8px 25px rgba(0, 168, 89, 0.4);
     }
 
-    .btn-custom:active {
-        transform: translateY(0);
+    .btn-next:active {
+    background: linear-gradient(135deg, #007a48, var(--pertamina-green));
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(0, 168, 89, 0.3);
     }
 
+    /* Disabled State */
     .btn-custom:disabled {
         opacity: 0.6;
         cursor: not-allowed;
         transform: none !important;
+        box-shadow: none !important;
     }
+
+    /* Loading State */
+    .btn-custom.loading {
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+    .btn-custom.loading i {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
 
     .alert-validation {
         background: rgba(227, 6, 19, 0.1);
@@ -314,7 +315,6 @@
         margin-bottom: 25px;
         display: none;
         align-items: center;
-        animation: shake 0.5s ease-in-out;
     }
 
     .alert-validation i {
@@ -324,68 +324,6 @@
 
     .alert-validation.show {
         display: flex;
-    }
-
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-        20%, 40%, 60%, 80% { transform: translateX(8px); }
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card {
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    .modal-content {
-        border-radius: 16px;
-        border: none;
-        overflow: hidden;
-    }
-
-    .modal-header {
-        background: linear-gradient(to right, var(--pertamina-blue), var(--pertamina-green));
-        color: white;
-        border: none;
-        padding: 20px 25px;
-    }
-
-    .modal-title {
-        font-weight: 700;
-    }
-
-    .modal-body {
-        padding: 30px;
-    }
-
-    .btn-outline-primary {
-        border: 2px solid var(--pertamina-blue);
-        color: var(--pertamina-blue);
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .btn-outline-primary:hover {
-        background: var(--pertamina-blue);
-        color: white;
-        transform: translateY(-2px);
-    }
-
-    .btn-outline-danger {
-        border: 2px solid var(--pertamina-red);
-        color: var(--pertamina-red);
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .btn-outline-danger:hover {
-        background: var(--pertamina-red);
-        color: white;
-        transform: translateY(-2px);
     }
 
     @media (max-width: 768px) {
@@ -453,14 +391,16 @@
             <div class="mb-4 text-center">
                 <input type="file" id="foto" name="foto" hidden accept="image/*">
 
-                <div class="upload-box" onclick="aksiFoto()">
-                    <img id="preview">
-                    <div class="upload-placeholder" id="placeholder">
-                        <i class="fas fa-camera"></i><br>
-                        <strong>Upload Foto</strong><br>
-                        <small>Pas Foto Berwarna<br>(Max 2MB)</small>
+                <label for="foto" style="cursor: pointer; display: inline-block;">
+                    <div class="upload-box" id="uploadBox">
+                        <img id="preview" style="display: none;">
+                        <div class="upload-placeholder" id="placeholder">
+                            <i class="fas fa-camera"></i><br>
+                            <strong>Upload Foto</strong><br>
+                            <small>Pas Foto Berwarna<br>(Max 2MB)</small>
+                        </div>
                     </div>
-                </div>
+                </label>
             </div>
 
             <!-- FORM -->
@@ -473,7 +413,7 @@
                         <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi terlebih dahulu</div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                        <label class="form-label">Email Pribadi <span class="text-danger">*</span></label>
                         <input type="email" class="form-control wajib" id="email" name="email" placeholder="contoh@email.com">
                         <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi email yang valid</div>
                     </div>
@@ -499,8 +439,9 @@
                         <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Format nomor tidak valid</div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Instagram</label>
-                        <input type="text" class="form-control" id="instagram" name="instagram" placeholder="@username">
+                        <label class="form-label">Instagram <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control wajib" id="instagram" name="instagram" placeholder="@username">
+                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi username Instagram</div>
                     </div>
                 </div>
 
@@ -525,29 +466,6 @@
     </div>
 </div>
 
-<!-- MODAL FOTO -->
-<div class="modal fade" id="fotoModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-image"></i> Preview Foto</h5>
-                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body text-center">
-                <img id="modalFoto" class="img-fluid rounded mb-3" style="max-height: 400px;">
-                <div class="d-grid gap-2">
-                    <button class="btn btn-outline-primary" onclick="lihatFoto()">
-                        <i class="fas fa-expand"></i> Lihat Foto
-                    </button>
-                    <button class="btn btn-outline-danger" onclick="gantiFoto()">
-                        <i class="fas fa-sync-alt"></i> Ganti Foto
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
 let fotoTerisi = false;
 const foto = document.getElementById('foto');
@@ -556,14 +474,7 @@ const placeholder = document.getElementById('placeholder');
 const alertValidation = document.getElementById('alertValidation');
 const alertMessage = document.getElementById('alertMessage');
 
-function aksiFoto() {
-    if (!fotoTerisi) {
-        foto.click();
-    } else {
-        new bootstrap.Modal(document.getElementById('fotoModal')).show();
-    }
-}
-
+// Event listener untuk foto
 foto.addEventListener('change', function () {
     const file = this.files[0];
     if (file) {
@@ -586,26 +497,11 @@ foto.addEventListener('change', function () {
             preview.src = e.target.result;
             preview.style.display = 'block';
             placeholder.style.display = 'none';
-            document.getElementById('modalFoto').src = e.target.result;
             fotoTerisi = true;
         };
         reader.readAsDataURL(file);
     }
 });
-
-function gantiFoto() {
-    foto.click();
-    bootstrap.Modal.getInstance(document.getElementById('fotoModal')).hide();
-}
-
-function lihatFoto() {
-    const modalFoto = document.getElementById('modalFoto');
-    if (modalFoto.style.transform === 'scale(1.5)') {
-        modalFoto.style.transform = 'scale(1)';
-    } else {
-        modalFoto.style.transform = 'scale(1.5)';
-    }
-}
 
 function showAlert(message) {
     alertMessage.textContent = message;
@@ -615,7 +511,6 @@ function showAlert(message) {
         alertValidation.classList.remove('show');
     }, 5000);
 
-    // Scroll to alert
     alertValidation.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
@@ -700,7 +595,7 @@ function isValidPhone(phone) {
 
 function kembaliKeDashboard() {
     if (confirm('Apakah Anda yakin ingin kembali? Data yang belum disimpan akan hilang.')) {
-        window.location.href = "{{ route('dashboard') }}";
+        window.location.href = "/";
     }
 }
 
@@ -728,7 +623,7 @@ function lanjutKeStep2() {
 
         // Redirect after brief delay
         setTimeout(() => {
-            window.location.href = "{{ route('magang.data-kampus') }}";
+            window.location.href = "/magang/data-kampus";
         }, 500);
     }
 }
@@ -743,14 +638,6 @@ document.querySelectorAll('.wajib').forEach(input => {
                 error.classList.add('d-none');
             }
         }
-    });
-
-    input.addEventListener('focus', function() {
-        this.style.transform = 'scale(1.01)';
-    });
-
-    input.addEventListener('blur', function() {
-        this.style.transform = 'scale(1)';
     });
 });
 
@@ -771,7 +658,6 @@ window.addEventListener('DOMContentLoaded', function() {
             preview.src = data.foto;
             preview.style.display = 'block';
             placeholder.style.display = 'none';
-            document.getElementById('modalFoto').src = data.foto;
             fotoTerisi = true;
         }
     }

@@ -340,7 +340,6 @@
     }
 </style>
 
-<!-- STEP -->
 <div class="step-wrapper">
     <div class="step">
         <div class="step-item step-completed">
@@ -362,14 +361,11 @@
     </div>
 </div>
 
-<!-- CONTENT -->
 <div class="container my-5">
     <div class="card">
         <div class="card-body">
-
             <h5><i class="fas fa-briefcase"></i> Data Magang</h5>
 
-            <!-- Alert Validation -->
             <div class="alert-validation" id="alertValidation">
                 <i class="fas fa-exclamation-triangle"></i>
                 <span id="alertMessage"></span>
@@ -377,246 +373,299 @@
 
             <form id="formData">
 
+                <!-- COMPANY -->
                 <div class="mb-3">
-                    <label class="form-label">Divisi yang Diminati <span class="text-danger">*</span></label>
-                    <select class="form-select wajib" id="divisi" name="divisi" required>
-                        <option value="">Pilih Divisi</option>
-                        <option value="IT">IT Division</option>
-                        <option value="Finance">Finance</option>
-                        <option value="HR">Human Resources</option>
-                        <option value="Operations">Operations</option>
-                        <option value="HSE">Health, Safety & Environment</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Supply Chain">Supply Chain</option>
-                        <option value="Legal">Legal & Compliance</option>
+                    <label class="form-label">Company <span class="text-danger">*</span></label>
+                    <select class="form-select wajib" id="company">
+                        <option value="">Pilih Company</option>
+                        <option value="KPI">PT Kilang Pertamina Internasional (KPI)</option>
+                        <option value="PPN">PT Pertamina Patra Niaga (C&T)</option>
                     </select>
-                    <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap pilih divisi</div>
                 </div>
 
+                <!-- REGION -->
                 <div class="mb-3">
-                    <label class="form-label">Posisi yang Diinginkan <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control wajib" id="posisi" name="posisi" required placeholder="Contoh: Data Analyst Intern">
-                    <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi posisi yang diinginkan</div>
+                    <label class="form-label">Region <span class="text-danger">*</span></label>
+                    <select class="form-select wajib" id="region">
+                        <option value="">Pilih Region</option>
+                    </select>
                 </div>
 
+                <!-- LOKASI -->
+                <div class="mb-3">
+                    <label class="form-label">Lokasi <span class="text-danger">*</span></label>
+                    <select class="form-select wajib" id="lokasi">
+                        <option value="">Pilih Lokasi</option>
+                    </select>
+                </div>
+
+                <!-- REKOMENDASI -->
+                <div class="mb-3">
+                    <label class="form-label">Rekomendasi</label>
+                    <input type="text" class="form-control" id="rekomendasi" name="rekomendasi" placeholder="Nama Pegawai (Fungsi)">
+                </div>
+
+                <!-- TANGGAL -->
                 <div class="row mb-3">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                        <label class="form-label">Tanggal Mulai <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control wajib" id="tanggal_mulai" name="tanggal_mulai" required>
-                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap pilih tanggal mulai</div>
+                    <div class="col-md-6">
+                        <label class="form-label">Mulai Magang <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control wajib" id="tanggal_mulai">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Tanggal Selesai <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control wajib" id="tanggal_selesai" name="tanggal_selesai" required>
-                        <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Tanggal selesai harus lebih besar</div>
+                        <label class="form-label">Selesai Magang <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control wajib" id="tanggal_selesai">
                     </div>
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label">Motivasi & Alasan <span class="text-danger">*</span></label>
-                    <textarea class="form-control wajib" id="motivasi" name="motivasi" rows="5" maxlength="1000" required placeholder="Ceritakan mengapa Anda tertarik magang di Pertamina..."></textarea>
-                    <div class="char-counter" id="charCounter">0 / 1000 karakter</div>
-                    <div class="error-text d-none"><i class="fas fa-exclamation-circle"></i> Harap isi motivasi dan alasan (minimal 50 karakter)</div>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn-custom btn-back" onclick="kembaliKeStep2()">
+                    <button type="button" class="btn-custom btn-back"
+                        onclick="window.location.href='{{ route('magang.data-kampus') }}'">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </button>
-                    <button type="button" class="btn-custom btn-next" id="btnNext" onclick="lanjutKeStep4()">
+                    <button type="button" class="btn-custom btn-next" onclick="lanjut()">
                         Selanjutnya <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
 
             </form>
-
         </div>
     </div>
 </div>
 
 <script>
-const alertValidation = document.getElementById('alertValidation');
-const alertMessage = document.getElementById('alertMessage');
-const motivasiTextarea = document.getElementById('motivasi');
-const charCounter = document.getElementById('charCounter');
+document.addEventListener('DOMContentLoaded', function () {
 
-// Character counter
-motivasiTextarea.addEventListener('input', function() {
-    const length = this.value.length;
-    charCounter.textContent = `${length} / 1000 karakter`;
-    
-    if (length > 900) {
-        charCounter.classList.add('warning');
-    } else {
-        charCounter.classList.remove('warning');
+    // =============================
+    // AMBIL ELEMENT
+    // =============================
+    const company = document.getElementById('company');
+    const region = document.getElementById('region');
+    const lokasi = document.getElementById('lokasi');
+    const rekomendasi = document.getElementById('rekomendasi');
+    const tanggal_mulai = document.getElementById('tanggal_mulai');
+    const tanggal_selesai = document.getElementById('tanggal_selesai');
+    const alertValidation = document.getElementById('alertValidation');
+    const alertMessage = document.getElementById('alertMessage');
+
+    // =============================
+    // ALERT
+    // =============================
+    function showAlert(msg) {
+        alertMessage.innerText = msg;
+        alertValidation.classList.add('show');
+        setTimeout(() => alertValidation.classList.remove('show'), 4000);
+    }
+
+    const dataKPI = {
+        "Refinery Unit VI Balongan": [
+            "Akuntansi / Ekonomi & Bisnis",
+            "Elektro (Arus Kuat)",
+            "Elektro (Arus Lemah)",
+            "Emergency & Insurance",
+            "Health",
+            "Hukum",
+            "Ilmu Komunikasi / FISIP / Administrasi Publik",
+            "Internal Audit",
+            "Kelautan / Perkapalan",
+            "Kimia Murni / MIPA",
+            "Konversi Energi / Migas / Kimia Air Bersih / Blanding / Loading",
+            "Logistik / Pergudangan / Procurement",
+            "Manajemen / SDM / Psikologi",
+            "Metalurgi / Material / Dirgantara",
+            "Safety (K3) / SMK3",
+            "Teknik Fisika",
+            "Teknik Industri",
+            "Teknik Informatika",
+            "Teknik Kimia",
+            "Teknik Lingkungan",
+            "Teknik Mesin",
+            "Teknik Mesin (Rotating)",
+            "Teknik Sipil"
+        ]
+    };
+
+    // =============================
+    // DATA PPN (FULL)
+    // =============================
+    const dataPPN = {
+        "Regional Jatimbalinus": [
+            "Asset Operation MOR V","Bitumen Plant Gresik","C&T IA Jatimbalinus","Comm, Rel, & CSR MOR V",
+            "Corporate Operation & Service Region V","Corporate Sales Region V","DPPU BIL","DPPU Eltari Group",
+            "DPPU Iswahyudi","DPPU Juanda","DPPU Ngurah Rai","Finance MOR V","Fuel Terminal Atapupu",
+            "Fuel Terminal Badas","Fuel Terminal Bima","Fuel Terminal Camplong","Fuel Terminal Ende",
+            "Fuel Terminal Kalabahi","Fuel Terminal Madiun","Fuel Terminal Malang","Fuel Terminal Maumere",
+            "Fuel Terminal Reo","Fuel Terminal Sanggaran","Fuel Terminal Tenau","Fuel Terminal Tuban",
+            "Fuel Terminal Waingapu","HC Jatimbalinus","HSSE Region V","Integrated Terminal Ampenan",
+            "Integrated Terminal Manggis","Integrated Terminal Surabaya","Integrated Terminal T. Wangi",
+            "Legal Counsel Regional Jatimbalinus","Marine Region V","Medical Jatimbalinus",
+            "Procurement MOR V","Rel & Project Dev Region V","Retail Bali","Retail Kediri",
+            "Retail Malang","Retail NTB","Retail NTT","Retail Sales Region V","Retail Surabaya",
+            "S&D Region V","SSC ICT VI Jatimbalinus","XXX"
+        ],
+        "Regional Jawa Bagian Barat": [
+            "Asset Operation JBB","Corp. Opt & Serv JBB","Corporate Sales JBB","DPPU Halim PK Group",
+            "DPPU Husein Sastranegara","DPPU Kertajati","Finance JBB","Fuel Terminal Bandung Group",
+            "Fuel Terminal Cikampek","Fuel Terminal Tasikmalaya","Fuel Terminal Tg Gerem","HSSE JBB",
+            "Human Capital","Integrated Terminal Balongan","Integrated Terminal Jakarta","Legal Counsel JBB",
+            "Medical JBB","MWH & LPG Cylinder","Procurement JBB","Reliability & Project Dev JBB",
+            "SA Retail Bandung","SA Retail Cirebon","SA Retail Karawang","SA Retail Sukabumi",
+            "SAM Retail Banten","SAM Retail Jabode","SHAFTHI","SHIPS","SCC ICT JBB",
+            "Supply & Distribution JBB","Unit Comm, Rel & CSR JBB"
+        ],
+        "Regional Jawa Bagian Tengah": [
+            "AFT Adi Sumarmo","AFT Adi Sucipto","AFT Ahmad Yani","AFT YIA",
+            "Fuel Terminal Boyolali","Fuel Terminal Lomanis","Fuel Terminal Maos",
+            "Fuel Terminal Rewulu","Fuel Terminal Tegal","Integrated Terminal Cilacap",
+            "Integrated Terminal Semarang","Kantor Branch Marketing DIY & Surakarta",
+            "Kantor Unit Asset Operation JBT","Kantor Unit Comm, Rel & CSR JBT",
+            "Kantor Unit Corp Operation & Serv JBT","Kantor Unit Corporate Sales JBT",
+            "Kantor Unit Finance JBT","Kantor Unit HC JBT","Kantor Unit HSSE JBT",
+            "Kantor Unit Internal Audit","Kantor Unit Legal Counsel JBT",
+            "Kantor Unit Medical JBT","Kantor Unit Operational Risk JBT",
+            "Kantor Unit Procurement JBT","Kantor Unit Rel & Project Dev JBT",
+            "Kantor Unit Retail Sales JBT","Kantor Unit SSC ICT V JBT",
+            "Kantor Unit Supply & Distribution JBT"
+        ],
+        "Regional Kalimantan": [
+            "DPPU APT Pranoto","DPPU H. Asan","DPPU Iskandar","DPPU Juwata",
+            "DPPU Kalimaru","DPPU Sepinggan","DPPU Supadio","DPPU Syamsudin Noor",
+            "DPPU Tjilik Riwut","Fuel Terminal Pulang Pisau","Fuel Terminal Kotabaru",
+            "Fuel Terminal Pangkalan Bun","Fuel Terminal Samarinda","Fuel Terminal Sampit",
+            "Fuel Terminal Sintang","Fuel Terminal Tarakan","Integrated Terminal Balikpapan",
+            "Integrated Terminal Banjarmasin","Integrated Terminal Pontianak",
+            "Kantor Patra Niaga Region Kalimantan","SAM Retail Kalbar","SAM Retail Kalselteng",
+            "SAM Retail Kaltimut"
+        ],
+        "Regional Maluku Papua": [
+            "Aviation FT Babullah","Aviation FT Deo","Aviation FT Depati Mopah",
+            "Aviation FT Depati Rendani","Aviation FT Dumatubun","Aviation FT Frans Kaisiepo",
+            "Aviation FT Mathilda","Aviation FT Mozes Kilangin","Aviation FT Paniai",
+            "Aviation FT Pattimura","Aviation FT Sentani","Aviation FT Utarom",
+            "FT Biak","FT Bula","FT Dobo","FT Fak-Fak","FT Kaimana","FT Labuha",
+            "FT Manokwari","FT Masohi","FT Merauke","FT Nabire","FT Namlea",
+            "FT Sanana","FT Saumlaki","FT Serui","FT Sorong","FT Ternate",
+            "FT Tobelo","FT Tual","IT Jayapura","IT Wayame",
+            "Kantor Region Asset Operation Papua-Maluku",
+            "Kantor Region Comm, Rel & CSR Papua-Maluku",
+            "Kantor Region Corp Operation & Serv Papua-Maluku",
+            "Kantor Region Corporate Sales Papua-Maluku",
+            "Kantor Region Finance Papua-Maluku",
+            "Kantor Region HC Papua-Maluku",
+            "Kantor Region HSSE Papua-Maluku",
+            "Kantor Region Legal Counsel Papua-Maluku",
+            "Kantor Region Medical Papua-Maluku",
+            "Kantor Region Procurement Papua-Maluku",
+            "Kantor Region Rel & Project Dev Papua-Maluku",
+            "Kantor Region Retail Sales Papua-Maluku",
+            "Kantor Region Supply & Dist Papua-Maluku",
+            "Sales Area Ambon"
+        ],
+        "Regional Sumbagut": [
+            "Asset Operation Region Sumbagut","Branch Marketing Aceh",
+            "Branch Marketing Kepulauan Riau","Branch Marketing Sibolga",
+            "Branch Marketing Sumbar","Communication & CSR Region Sumbagut",
+            "Corp Operation & Serv Region Sumbagut","Corporate Sales Region Sumbagut",
+            "DPPU Hang Nadim Group","DPPU Kualanamu Group","DPPU Minangkabau",
+            "DPPU SIM","DPPU SSK II","Finance Region Sumbagut",
+            "Fuel Terminal Batam","Fuel Terminal Gunung Sitoli",
+            "Fuel Terminal Kijang Group","Fuel Terminal Kisaran",
+            "Fuel Terminal Krueng Raya","Fuel Terminal Medan Group",
+            "Fuel Terminal Meulaboh","Fuel Terminal Natuna Group",
+            "Fuel Terminal Pematang Siantar","Fuel Terminal Sabang",
+            "Fuel Terminal Sei Siak","Fuel Terminal Sibolga",
+            "Fuel Terminal Simeulue","Fuel Terminal Tembilahan",
+            "HC Region Sumbagut","HSSE Region Sumbagut",
+            "IA Region I","Integrated Terminal Dumai",
+            "Integrated Terminal Lhokseumawe","Integrated Terminal Tanjung Uban",
+            "Integrated Terminal Teluk Kabung","Legal Counsel Region Sumbagut",
+            "Medical Region Sumbagut","Procurement Region Sumbagut",
+            "Rel & Project Dev Region Sumbagut",
+            "Retail Sales Region Sumbagut",
+            "SSC ICT I Region Sumbagut",
+            "Supply & Distribution Region Sumbagut"
+        ]
+    };
+
+   // =============================
+// COMPANY → REGION
+// =============================
+company.addEventListener('change', function () {
+    region.innerHTML = '<option value="">Pilih Region</option>';
+    lokasi.innerHTML = '<option value="">Pilih Lokasi</option>';
+
+    if (this.value === 'PPN') {
+        // Jika pilih PPN, ambil key dari dataPPN
+        Object.keys(dataPPN).forEach(function (r) {
+            const opt = document.createElement('option');
+            opt.value = r;
+            opt.textContent = r;
+            region.appendChild(opt);
+        });
+    } else if (this.value === 'KPI') {
+        // PERBAIKAN: Jika pilih KPI, ambil key dari dataKPI
+        Object.keys(dataKPI).forEach(function (r) {
+            const opt = document.createElement('option');
+            opt.value = r;
+            opt.textContent = r;
+            region.appendChild(opt);
+        });
     }
 });
 
-// Date validation
-document.getElementById('tanggal_mulai').addEventListener('change', function() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const selectedDate = new Date(this.value);
-    
-    if (selectedDate < today) {
-        showAlert('Tanggal mulai tidak boleh kurang dari hari ini!');
-        this.value = '';
+// =============================
+// REGION → LOKASI
+// =============================
+region.addEventListener('change', function () {
+    lokasi.innerHTML = '<option value="">Pilih Lokasi</option>';
+
+    // PERBAIKAN: Cek di kedua objek data
+    let selectedData = null;
+    if (company.value === 'PPN') {
+        selectedData = dataPPN[this.value];
+    } else if (company.value === 'KPI') {
+        selectedData = dataKPI[this.value];
+    }
+
+    if (selectedData) {
+        selectedData.forEach(function (l) {
+            const opt = document.createElement('option');
+            opt.value = l;
+            opt.textContent = l;
+            lokasi.appendChild(opt);
+        });
     }
 });
 
-document.getElementById('tanggal_selesai').addEventListener('change', function() {
-    const startDate = new Date(document.getElementById('tanggal_mulai').value);
-    const endDate = new Date(this.value);
-    
-    if (endDate <= startDate) {
-        showAlert('Tanggal selesai harus lebih besar dari tanggal mulai!');
-        this.value = '';
-    }
-    
-    // Check duration (minimum 1 month)
-    const diffTime = Math.abs(endDate - startDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays < 30) {
-        showAlert('Durasi magang minimal 1 bulan!');
-        this.value = '';
-    }
-});
-
-function showAlert(message) {
-    alertMessage.textContent = message;
-    alertValidation.classList.add('show');
-    
-    setTimeout(() => {
-        alertValidation.classList.remove('show');
-    }, 5000);
-
-    alertValidation.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function validasiForm() {
-    let valid = true;
-    let firstInvalidField = null;
-
-    // Hapus semua error sebelumnya
-    document.querySelectorAll('.wajib').forEach(input => {
-        input.classList.remove('is-invalid');
-        const error = input.nextElementSibling;
-        if (error && error.classList.contains('error-text')) {
-            error.classList.add('d-none');
-        }
-    });
-
-    // Validasi setiap field
-    document.querySelectorAll('.wajib').forEach(input => {
-        const error = input.classList.contains('form-control') || input.classList.contains('form-select') 
-            ? input.nextElementSibling 
-            : null;
-        const value = input.value.trim();
-
-        if (!value) {
-            input.classList.add('is-invalid');
-            if (error && error.classList.contains('error-text')) {
-                error.classList.remove('d-none');
-            }
-            valid = false;
-            if (!firstInvalidField) firstInvalidField = input;
-        } else {
-            // Validasi motivasi (minimal 50 karakter)
-            if (input.id === 'motivasi' && value.length < 50) {
-                input.classList.add('is-invalid');
-                if (error && error.classList.contains('error-text')) {
-                    error.classList.remove('d-none');
-                }
+    // =============================
+    // SUBMIT
+    // =============================
+    window.lanjut = function () {
+        let valid = true;
+        document.querySelectorAll('.wajib').forEach(el => {
+            el.classList.remove('is-invalid');
+            if (!el.value) {
+                el.classList.add('is-invalid');
                 valid = false;
-                if (!firstInvalidField) firstInvalidField = input;
             }
+        });
+
+        if (!valid) {
+            showAlert('Lengkapi semua data wajib');
+            return;
         }
-    });
 
-    // Validasi tanggal
-    const startDate = new Date(document.getElementById('tanggal_mulai').value);
-    const endDate = new Date(document.getElementById('tanggal_selesai').value);
-    
-    if (endDate <= startDate) {
-        document.getElementById('tanggal_selesai').classList.add('is-invalid');
-        valid = false;
-    }
+        sessionStorage.setItem('dataMagang', JSON.stringify({
+            company: company.value,
+            region: region.value,
+            lokasi: lokasi.value,
+            rekomendasi: rekomendasi.value,
+            mulai: tanggal_mulai.value,
+            selesai: tanggal_selesai.value
+        }));
 
-    if (!valid) {
-        showAlert('Mohon lengkapi semua data yang wajib diisi dengan benar!');
-        if (firstInvalidField) {
-            firstInvalidField.focus();
-            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    }
+        window.location.href = "{{ route('magang.file-pendukung') }}";
+    };
 
-    return valid;
-}
-
-function kembaliKeStep2() {
-    if (confirm('Apakah Anda yakin ingin kembali? Data yang belum disimpan akan hilang.')) {
-        window.location.href = "{{ route('magang.data-kampus') }}";
-    }
-}
-
-function lanjutKeStep4() {
-    if (validasiForm()) {
-        // Simpan data ke sessionStorage
-        const formData = {
-            divisi: document.getElementById('divisi').value,
-            posisi: document.getElementById('posisi').value,
-            tanggal_mulai: document.getElementById('tanggal_mulai').value,
-            tanggal_selesai: document.getElementById('tanggal_selesai').value,
-            motivasi: document.getElementById('motivasi').value
-        };
-        
-        sessionStorage.setItem('dataMagang', JSON.stringify(formData));
-        
-        // Show loading state
-        const btnNext = document.getElementById('btnNext');
-        btnNext.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-        btnNext.disabled = true;
-
-        setTimeout(() => {
-            window.location.href = "{{ route('magang.file-pendukung') }}";
-        }, 500);
-    }
-}
-
-// Real-time validation
-document.querySelectorAll('.wajib').forEach(input => {
-    input.addEventListener('input', function() {
-        if (this.value.trim()) {
-            this.classList.remove('is-invalid');
-            const error = this.nextElementSibling;
-            if (error && error.classList.contains('error-text')) {
-                error.classList.add('d-none');
-            }
-        }
-    });
-});
-
-// Load saved data
-window.addEventListener('DOMContentLoaded', function() {
-    const savedData = sessionStorage.getItem('dataMagang');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        document.getElementById('divisi').value = data.divisi || '';
-        document.getElementById('posisi').value = data.posisi || '';
-        document.getElementById('tanggal_mulai').value = data.tanggal_mulai || '';
-        document.getElementById('tanggal_selesai').value = data.tanggal_selesai || '';
-        document.getElementById('motivasi').value = data.motivasi || '';
-        
-        // Update character counter
-        if (data.motivasi) {
-            charCounter.textContent = `${data.motivasi.length} / 1000 karakter`;
-        }
-    }
-    
-    // Set minimum date to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('tanggal_mulai').setAttribute('min', today);
 });
 </script>
 

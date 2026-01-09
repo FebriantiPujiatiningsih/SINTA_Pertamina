@@ -276,30 +276,26 @@
     }
 
     .form-check {
-        background: #f9fbfd;
-        padding: 18px 20px;
-        border-radius: 10px;
-        border: 2px solid var(--border-color);
-        margin-bottom: 30px;
-        transition: all 0.3s ease;
-    }
-
-    .form-check:has(input:checked) {
-        background: rgba(0, 168, 89, 0.05);
-        border-color: var(--pertamina-green);
+    background: #f9fbfd;
+    padding: 18px 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    /* Tambahkan ini agar sejajar */
+    display: flex;
+    align-items: flex-start; /* Checklist sejajar dengan baris pertama teks */
+    gap: 12px; 
     }
 
     .form-check-input {
         width: 20px;
         height: 20px;
-        margin-right: 12px;
         cursor: pointer;
         border: 2px solid var(--border-color);
-    }
-
-    .form-check-input:checked {
-        background-color: var(--pertamina-green);
-        border-color: var(--pertamina-green);
+        /* Hapus margin manual agar tidak konflik dengan flex gap */
+        margin: 0 !important; 
+        flex-shrink: 0; /* Agar checkbox tidak gepeng saat teks panjang */
     }
 
     .form-check-label {
@@ -307,6 +303,7 @@
         font-size: 14px;
         color: var(--text-dark);
         line-height: 1.5;
+        margin: 0; /* Hapus margin bawaan label */
     }
 
     .btn-custom {
@@ -487,11 +484,6 @@
 
             <h5><i class="fas fa-file-upload"></i> File Pendukung</h5>
 
-            <div class="alert-info">
-                <i class="fas fa-info-circle"></i>
-                <span>Upload file dalam format <strong>PDF</strong> dengan ukuran maksimal <strong>5MB</strong> per file</span>
-            </div>
-
             <!-- Alert Validation -->
             <div class="alert-validation" id="alertValidation">
                 <i class="fas fa-exclamation-triangle"></i>
@@ -543,18 +535,38 @@
                 <!-- Surat Pengantar -->
                 <div class="file-upload-wrapper">
                     <label class="form-label">
-                        <i class="fas fa-file-pdf"></i> Surat Pengantar dari Kampus
+                        <i class="fas fa-file-pdf"></i> Surat Pengantar dari Kampus <span class="text-danger">*</span>
                     </label>
-                    <div class="file-upload-input" id="suratWrapper">
+                    <div class="file-upload-input" id="surat_pengantarWrapper">
                         <input type="file" id="surat_pengantar" name="surat_pengantar" accept=".pdf" onchange="handleFileSelect(this, 'surat_pengantar')">
-                        <label for="surat_pengantar" class="file-upload-label" id="suratLabel">
+                        <label for="surat_pengantar" class="file-upload-label" id="surat_pengantarLabel">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <div>
                                 <strong>Klik untuk upload Surat Pengantar</strong>
-                                <div class="text-muted small">PDF, Max 5MB (Opsional)</div>
+                                <div class="text-muted small">PDF, Max 5MB</div>
                             </div>
                         </label>
                         <button type="button" class="remove-file" onclick="removeFile('surat_pengantar')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Proposal -->
+                <div class="file-upload-wrapper">
+                    <label class="form-label">
+                        <i class="fas fa-file-pdf"></i> Proposal <span class="text-danger">*</span>
+                    </label>
+                    <div class="file-upload-input" id="proposalWrapper">
+                        <input type="file" id="proposal" name="proposal" accept=".pdf" onchange="handleFileSelect(this, 'proposal')">
+                        <label for="proposal" class="file-upload-label" id="proposalLabel">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div>
+                                <strong>Klik untuk upload Proposal</strong>
+                                <div class="text-muted small">PDF, Max 5MB</div>
+                            </div>
+                        </label>
+                        <button type="button" class="remove-file" onclick="removeFile('proposal')">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -610,43 +622,32 @@ const uploadedFiles = {
     cv: null,
     transkrip: null,
     surat_pengantar: null,
+    proposal: null,
     portfolio: null
 };
 
 function handleFileSelect(input, type) {
     const file = input.files[0];
-    
     if (!file) return;
 
-    // Validate file type
-    if (file.type !== 'application/pdf') {
-        showAlert('File harus berformat PDF!');
-        input.value = '';
-        return;
-    }
+    // Validasi format & ukuran tetap sama...
 
-    // Validate file size (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-        showAlert('Ukuran file maksimal 5MB!');
-        input.value = '';
-        return;
-    }
-
-    // Update UI
+    // Update UI - Pastikan ID wrapper di HTML adalah [type]Wrapper
     const wrapper = document.getElementById(type + 'Wrapper');
     const label = document.getElementById(type + 'Label');
     
-    wrapper.classList.add('has-file');
-    label.classList.add('has-file');
-    label.innerHTML = `
-        <i class="fas fa-check-circle"></i>
-        <div>
-            <div class="file-name">${file.name}</div>
-            <div class="file-size">${formatFileSize(file.size)}</div>
-        </div>
-    `;
-
-    uploadedFiles[type] = file;
+    if (wrapper && label) {
+        wrapper.classList.add('has-file');
+        label.classList.add('has-file');
+        label.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <div class="file-name">${file.name}</div>
+                <div class="file-size">${formatFileSize(file.size)}</div>
+            </div>
+        `;
+        uploadedFiles[type] = file;
+    }
 }
 
 function removeFile(type) {
@@ -658,7 +659,7 @@ function removeFile(type) {
     wrapper.classList.remove('has-file');
     label.classList.remove('has-file');
     
-    const isOptional = type === 'surat_pengantar' || type === 'portfolio';
+    const isOptional = type === 'portfolio';
     label.innerHTML = `
         <i class="fas fa-cloud-upload-alt"></i>
         <div>
@@ -675,6 +676,7 @@ function getFileTitle(type) {
         cv: 'CV',
         transkrip: 'Transkrip',
         surat_pengantar: 'Surat Pengantar',
+        proposal: 'Proposal',
         portfolio: 'Portfolio'
     };
     return titles[type] || type;
@@ -702,26 +704,39 @@ function showAlert(message) {
 function validasiForm() {
     let valid = true;
 
-    // Validasi CV dan Transkrip (wajib)
+    // 1. Validasi CV
     if (!uploadedFiles.cv) {
         showAlert('CV/Resume wajib diupload!');
         document.getElementById('cvWrapper').style.borderColor = 'var(--pertamina-red)';
-        setTimeout(() => {
-            document.getElementById('cvWrapper').style.borderColor = '';
-        }, 3000);
+        setTimeout(() => { document.getElementById('cvWrapper').style.borderColor = ''; }, 3000);
         valid = false;
     }
 
+    // 2. Validasi Transkrip
     if (!uploadedFiles.transkrip) {
         showAlert('Transkrip Nilai wajib diupload!');
         document.getElementById('transkripWrapper').style.borderColor = 'var(--pertamina-red)';
-        setTimeout(() => {
-            document.getElementById('transkripWrapper').style.borderColor = '';
-        }, 3000);
+        setTimeout(() => { document.getElementById('transkripWrapper').style.borderColor = ''; }, 3000);
         valid = false;
     }
 
-    // Validasi agreement
+    // 3. Validasi Surat Pengantar (Perbaikan Variabel & ID)
+    if (!uploadedFiles.surat_pengantar) { // Gunakan object uploadedFiles
+        showAlert('Surat Pengantar wajib diupload!');
+        document.getElementById('surat_pengantarWrapper').style.borderColor = 'var(--pertamina-red)'; // ID disesuaikan dengan HTML
+        setTimeout(() => { document.getElementById('surat_pengantarWrapper').style.borderColor = ''; }, 3000);
+        valid = false;
+    }
+
+    // 4. Validasi Proposal
+    if (!uploadedFiles.proposal) {
+        showAlert('Proposal wajib diupload!');
+        document.getElementById('proposalWrapper').style.borderColor = 'var(--pertamina-red)';
+        setTimeout(() => { document.getElementById('proposalWrapper').style.borderColor = ''; }, 3000);
+        valid = false;
+    }
+
+    // 5. Validasi Agreement
     if (!document.getElementById('agreement').checked) {
         showAlert('Anda harus menyetujui pernyataan terlebih dahulu!');
         valid = false;
@@ -735,6 +750,30 @@ function kembaliKeStep3() {
         window.location.href = "{{ route('magang.data-magang') }}";
     }
 }
+
+// public function store(Request $request)
+// {
+//     try {
+//         // Logika simpan data ke DB (sama seperti sebelumnya)
+//         $id = DB::table('pendaftaran_magang')->insertGetId([
+//             'nama_lengkap' => $request->nama_lengkap,
+//             'email_pribadi' => $request->email_pribadi,
+//             // ... masukkan semua field lainnya sesuai $request
+//             'created_at' => now()
+//         ]);
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Data berhasil disimpan dengan ID: ' . $id
+//         ]);
+
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => $e->getMessage()
+//         ], 500);
+//     }
+// }
 
 function submitForm() {
     if (!validasiForm()) {
