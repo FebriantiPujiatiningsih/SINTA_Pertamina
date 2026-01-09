@@ -35,8 +35,6 @@ Route::prefix('magang')->group(function () {
     Route::post('/store', [MagangController::class, 'store'])->name('magang.store');
 });
 
-
-<<<<<<< HEAD
 /*
 |--------------------------------------------------------------------------
 | PENELITIAN
@@ -75,4 +73,3 @@ Route::get('/data-diri', function () {
 
 // Ganti baris yang error tadi jadi ini:
 Route::view('/penelitian/formulir-biodata', 'layouts.Penelitian.form_bio')->name('penelitian.form_bio');
->>>>>>> 20b46251bba0226e4dc892ed6800abc4efcb737c
