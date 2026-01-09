@@ -12,12 +12,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: #f8f9fa; color: #333; }
 
-        /* --- 1. HERO SECTION --- */
+        /* --- 1. HERO SECTION (Tetap Gradient Merah Pertamina) --- */
         .hero-section {
             position: relative;
             height: 450px;
-            /* Pastikan file 'pekerja.jpg' ada di folder: project_laravel/public/img/pekerja.jpg */
-            background-image: linear-gradient(rgba(0, 51, 153, 0.7), rgba(0, 0, 0, 0.5)), 
+            /* Gradient Merah ke Merah Gelap */
+            background-image: linear-gradient(rgba(237, 27, 36, 0.9), rgba(100, 0, 0, 0.7)), 
                               url('/img/pekerja.jpg');
             background-size: cover;
             background-position: center;
@@ -45,7 +45,8 @@
         }
 
         .join-badge {
-            background-color: #0099ff;
+            /* Biru Pertamina sebagai penyeimbang */
+            background-color: #00529C;
             color: white;
             padding: 10px 20px;
             border-radius: 8px;
@@ -54,19 +55,19 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: background 0.3s;
         }
-        .join-badge:hover { background-color: #0077cc; }
+        .join-badge:hover { background-color: #003366; }
 
         .hero-content { max-width: 600px; color: white; }
         .hero-content h1 { font-size: 3rem; line-height: 1.2; margin-bottom: 20px; font-weight: 700; }
 
-        /* --- 2. MAIN CONTENT & INTRO TEXT (Update Flexbox) --- */
+        /* --- 2. MAIN CONTENT --- */
         .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
         
         .intro-text {
             margin-bottom: 40px;
-            display: flex;               /* Mode baris */
-            justify-content: space-between; /* Teks mentok kiri, Tombol mentok kanan */
-            align-items: center;         /* Rata tengah vertikal */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 20px;
         }
 
@@ -84,7 +85,8 @@
         }
 
         .cta-button {
-            background-color: #005eb8;
+            /* Hijau Pertamina untuk tombol aksi (Fresh) */
+            background-color: #009B4C;
             color: white;
             padding: 12px 24px;
             text-decoration: none;
@@ -93,12 +95,12 @@
             transition: background 0.3s;
             white-space: nowrap; 
         }
-        .cta-button:hover { background-color: #004494; }
+        .cta-button:hover { background-color: #007a3e; }
 
-        /* --- 3. LAYOUT GRID (YANG SEBELUMNYA HILANG) --- */
+        /* --- 3. LAYOUT GRID --- */
         .job-board-layout {
             display: grid;
-            grid-template-columns: 280px 1fr; /* Sidebar 280px, sisanya Content */
+            grid-template-columns: 280px 1fr; 
             gap: 40px;
         }
 
@@ -119,13 +121,15 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             outline: none;
+            transition: border-color 0.3s;
         }
+        .search-box input:focus { border-color: #ED1B24; }
         .search-box i {
             position: absolute;
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #005eb8;
+            color: #ED1B24; /* Ikon Merah */
         }
 
         .styled-select {
@@ -139,47 +143,78 @@
             color: #333;
             outline: none;
             appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            /* Panah dropdown merah */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ED1B24' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 15px center;
             background-size: 12px;
         }
-        .styled-select option[disabled] { color: #999; }
 
-        /* --- 5. JOB CARDS --- */
+        /* --- 5. JOB CARDS (PERBAIKAN UTAMA) --- */
         .job-list { display: flex; flex-direction: column; gap: 15px; }
         
         .job-card {
-            background-color: #e6f4ff;
-            padding: 25px;
+            /* Background PUTIH agar bersih */
+            background-color: #fff;
+            padding: 25px 25px 25px 30px; /* Padding kiri lebih besar sedikit */
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             cursor: pointer;
-            border: 1px solid transparent;
+            border: 1px solid #eee;
+            position: relative;
+            overflow: hidden; /* Supaya gradient bar tidak bocor */
         }
+
+        /* STRIP GRADIENT MERAH DI KIRI (Pengganti blok merah penuh) */
+        .job-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 6px; /* Ketebalan garis aksen */
+            /* Gradient Merah Pudar seperti Header */
+            background: linear-gradient(to bottom, #ED1B24, #8a0b10);
+        }
+
         .job-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-color: #005eb8;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(237, 27, 36, 0.1); /* Bayangan merah halus */
+            border-color: #ffcccc; /* Border jadi merah muda sangat tipis saat hover */
         }
 
-        .job-info h3 { color: #005eb8; margin-bottom: 10px; font-size: 1.2rem; }
-        .job-meta { display: flex; gap: 15px; font-size: 0.9rem; color: #555; flex-wrap: wrap; }
-        .job-meta span { display: flex; align-items: center; gap: 6px; }
+        .job-info h3 { 
+            color: #333; /* Judul Hitam agar kontras dan mudah dibaca */
+            margin-bottom: 10px; 
+            font-size: 1.2rem; 
+            font-weight: 700;
+        }
+        
+        .job-meta { display: flex; gap: 15px; font-size: 0.9rem; color: #666; flex-wrap: wrap; }
+        
+        /* Ikon-ikon kecil berwarna Merah Pertamina */
+        .job-meta span i { color: #ED1B24; margin-right: 5px; } 
 
+        /* Tombol Panah dengan Gradient Merah */
         .arrow-btn {
-            background-color: #003366;
+            background: linear-gradient(135deg, #ED1B24, #b3141b);
             color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%; /* Bulat sempurna */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(237, 27, 36, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .job-card:hover .arrow-btn {
+            transform: translateX(5px); /* Efek geser sedikit saat card di-hover */
         }
 
         /* --- RESPONSIVE --- */
@@ -187,10 +222,7 @@
             .job-board-layout { grid-template-columns: 1fr; }
             .hero-content h1 { font-size: 2rem; }
             .top-nav { top: 20px; }
-            .intro-text {
-                flex-direction: column; 
-                align-items: flex-start;
-            }
+            .intro-text { flex-direction: column; align-items: flex-start; }
             .text-wrapper { max-width: 100%; }
             .cta-button { margin-top: 20px; width: 100%; text-align: center; }
         }
@@ -223,7 +255,7 @@
             
             <aside class="filters">
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
-                    <a href="#" onclick="location.reload()" style="font-size:0.9rem; text-decoration:none; color:#005eb8; cursor:pointer;">Clear filters</a>
+                    <a href="#" onclick="location.reload()" style="font-size:0.9rem; text-decoration:none; color:#666; cursor:pointer;">Clear filters</a>
                 </div>
 
                 <div class="filter-group">

@@ -41,17 +41,14 @@ Route::prefix('magang')->group(function () {
 //     Route::get('/list', [MagangController::class, 'index'])->name('magang.index');
 // });
 
-// Penelitian routes
-Route::prefix('penelitian')->group(function () {
-    Route::get('/daftar', [PenelitianController::class, 'daftar'])->name('penelitian.daftar');
-    Route::post('/store', [PenelitianController::class, 'store'])->name('penelitian.store');
-    Route::get('/list', [PenelitianController::class, 'index'])->name('penelitian.index');
-});
-
 // Hasil routes
 Route::get('/hasil/cek', [HasilController::class, 'cek'])->name('hasil.cek');
 
 Route::get('/data-diri', function () {
     // layouts (folder) . penelitian (folder) . DataDiri (nama file)
-    return view('layouts.penelitian.DataDiri');
+    return view('layouts.Penelitian.DashPeneliti');
 })->name('penelitian.data-diri');
+
+
+// Ganti baris yang error tadi jadi ini:
+Route::view('/penelitian/formulir-biodata', 'layouts.Penelitian.form_bio')->name('penelitian.form_bio');
