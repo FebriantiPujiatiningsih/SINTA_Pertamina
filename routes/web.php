@@ -40,21 +40,21 @@ Route::prefix('magang')->group(function () {
 | PENELITIAN
 |--------------------------------------------------------------------------
 */
-Route::prefix('penelitian')->group(function () {
+// Route::prefix('penelitian')->group(function () {
 
-    Route::get('/data-diri', function () {
-        return view('layouts.penelitian.DataDiri');
-    })->name('penelitian.data-diri');
+//     Route::get('/data-diri', function () {
+//         return view('layouts.penelitian.DataDiri');
+//     })->name('penelitian.data-diri');
 
-    Route::get('/daftar', [PenelitianController::class, 'daftar'])
-        ->name('penelitian.daftar');
+//     Route::get('/daftar', [PenelitianController::class, 'daftar'])
+//         ->name('penelitian.daftar');
 
-    Route::post('/store', [PenelitianController::class, 'store'])
-        ->name('penelitian.store');
+//     Route::post('/store', [PenelitianController::class, 'store'])
+//         ->name('penelitian.store');
 
-    Route::get('/list', [PenelitianController::class, 'index'])
-        ->name('penelitian.index');
-});
+//     Route::get('/list', [PenelitianController::class, 'index'])
+//         ->name('penelitian.index');
+// });
 
 /*
 |--------------------------------------------------------------------------
