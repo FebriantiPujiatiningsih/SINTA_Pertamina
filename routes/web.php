@@ -14,6 +14,9 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 |--------------------------------------------------------------------------
 */
 Route::prefix('magang')->group(function () {
+    Route::get('/magang-kerja', function () {
+        return view('layouts.magang-kerja.homepage');
+    })->name('magang.homepage');
 
     Route::get('/data-diri', function () {
         return view('layouts.Magang-Kerja.DataDiri');

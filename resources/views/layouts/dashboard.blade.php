@@ -6,7 +6,7 @@
         <div class="col-md-4">
             <h4>Magang Kerja</h4>
             <p>Mau merasakan magang di PT. Pertamina (Persero)?</p>
-            <a href="{{ route('magang.data-diri') }}" class="btn btn-primary w-100">
+            <a href="{{ route('magang.homepage') }}" class="btn btn-primary w-100">
                 Daftar Magang Kerja
             </a>
         </div>

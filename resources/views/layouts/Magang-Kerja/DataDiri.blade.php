@@ -452,8 +452,8 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <button type="button" class="btn-custom btn-back" onclick="kembaliKeDashboard()">
-                        <i class="fas fa-arrow-left"></i> Kembali
+                    <button type="button" class="btn-custom btn-back" onclick="kembaliKeHomepage()">
+                        <i class="fas fa-arrow-left"></i> Keluar
                     </button>
                     <button type="button" class="btn-custom btn-next" id="btnNext" onclick="lanjutKeStep2()">
                         Selanjutnya <i class="fas fa-arrow-right"></i>
@@ -593,9 +593,9 @@ function isValidPhone(phone) {
     return re.test(phone.replace(/[\s-]/g, ''));
 }
 
-function kembaliKeDashboard() {
+function kembaliKeHomepage() {
     if (confirm('Apakah Anda yakin ingin kembali? Data yang belum disimpan akan hilang.')) {
-        window.location.href = "/";
+        window.location.href = "/magang/magang-kerja";
     }
 }
 
